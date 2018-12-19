@@ -1,4 +1,5 @@
 package lettersProject;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -6,10 +7,10 @@ import java.nio.file.Paths;
 
 public class JekyllMarkdownTransliterator {
 
-    public static void main(String[] args) throws IOException {	        	                
-        String fileText;
-        fileText = new String(Files.readAllBytes(Paths.get("hr-file.md")));
-
+    public static void main(String[] args) throws IOException {	       	
+    	String hrFileName = getHrFileName();
+        String fileText = new String(Files.readAllBytes(Paths.get(hrFileName)));
+                
         //TODO: don't transliterate anything:
         // - for the included images in the markdown, except for the image alternative text
         // - in the Jekyll "Front Matter" (YAML set between triple-dashed lines) except for:
@@ -18,14 +19,27 @@ public class JekyllMarkdownTransliterator {
                 
         String outText = transliterate(fileText);
     
-        PrintWriter writer = new PrintWriter("sr-file.md", "UTF-8");
+        String srFileName = "sr" + hrFileName.substring(2);
+        PrintWriter writer = new PrintWriter(srFileName, "UTF-8");
         writer.println(outText);
         writer.close();
                 
         System.out.println("End");     
     }
 	    
-    private static String transliterate(String inText){
+    private static String getHrFileName() {
+        File curDir = new File(".");
+        File[] filesList = curDir.listFiles();
+        for(File f : filesList){
+            if(f.isFile() && f.toString().substring(2).startsWith("hr-")){
+                System.out.println(f.getName());
+                return f.getName();
+            }
+        }
+        return "none";
+	}
+
+	private static String transliterate(String inText){
     	// 2 letters that map to 1 letter, need to be mapped first: 	
     	String outText = inText.replace("Dž", "Џ");
     	outText = outText.replace("dž", "џ");
@@ -110,9 +124,7 @@ public class JekyllMarkdownTransliterator {
     	// No change for: Letters that are completely the same in both alphabets:
     	// A, a, E, e, J, j, O, o
     	
-    	System.out.printf("%s\n",outText);
+    	//System.out.printf("%s\n",outText);
     	return outText;
     }
 }
-
-
