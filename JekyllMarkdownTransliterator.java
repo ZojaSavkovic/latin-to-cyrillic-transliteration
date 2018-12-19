@@ -26,87 +26,86 @@ public class JekyllMarkdownTransliterator {
     }
 	    
     private static String transliterate(String inText){
-        
     	// 2 letters that map to 1 letter, need to be mapped first: 	
-    	String outText = inText.replace("D�", "?");
-    	outText = outText.replace("d�", "?");
+    	String outText = inText.replace("Dž", "Џ");
+    	outText = outText.replace("dž", "џ");
     	
-    	outText = outText.replace("Lj", "?");
-    	outText = outText.replace("lj", "?");
+    	outText = outText.replace("Lj", "Љ");
+    	outText = outText.replace("lj", "љ");
     	
-    	outText = outText.replace("Nj", "?");
-    	outText = outText.replace("nj", "?");
+    	outText = outText.replace("Nj", "Њ");
+    	outText = outText.replace("nj", "њ");
     		    
     	// 1 letter maps to 1 letter
-    	outText = outText.replace("B", "?");
-    	outText = outText.replace("b", "?");
+    	outText = outText.replace("B", "Б");
+    	outText = outText.replace("b", "б");
     	
-    	outText = outText.replace("C", "?");
-    	outText = outText.replace("c", "?");
+    	outText = outText.replace("C", "Ц");
+    	outText = outText.replace("c", "ц");
     	
-    	outText = outText.replace("C", "?");
-    	outText = outText.replace("c", "?");
+    	outText = outText.replace("Č", "Ч");
+    	outText = outText.replace("č", "ч");
     	
-    	outText = outText.replace("C", "?");
-    	outText = outText.replace("c", "?");
+    	outText = outText.replace("Ć", "Ћ");
+    	outText = outText.replace("ć", "ћ");
     	
-    	outText = outText.replace("D", "?");
-    	outText = outText.replace("d", "?");
+    	outText = outText.replace("D", "Д");
+    	outText = outText.replace("d", "д");
     	
-    	outText = outText.replace("�", "?");
-    	outText = outText.replace("d", "?");
+    	outText = outText.replace("Đ", "Ђ");
+    	outText = outText.replace("đ", "ђ");
     	
-    	outText = outText.replace("F", "?");
-    	outText = outText.replace("f", "?");
+    	outText = outText.replace("F", "Ф");
+    	outText = outText.replace("f", "ф");
     	
-    	outText = outText.replace("G", "?");
-    	outText = outText.replace("g", "?");
+    	outText = outText.replace("G", "Г");
+    	outText = outText.replace("g", "г");
     		    	
-    	outText = outText.replace("H", "?");
-    	outText = outText.replace("h", "?");
+    	outText = outText.replace("H", "Х");
+    	outText = outText.replace("h", "х");
     		    	
-    	outText = outText.replace("I", "?");
-    	outText = outText.replace("i", "?");
+    	outText = outText.replace("I", "И");
+    	outText = outText.replace("i", "и");
     		    	
-    	outText = outText.replace("L", "?");
-    	outText = outText.replace("l", "?");
+    	outText = outText.replace("L", "Л");
+    	outText = outText.replace("l", "л");
     		    	
-    	outText = outText.replace("N", "?");
-    	outText = outText.replace("n", "?");
+    	outText = outText.replace("N", "Н");
+    	outText = outText.replace("n", "н");
     		    	
-    	outText = outText.replace("P", "?");
-    	outText = outText.replace("p", "?");
+    	outText = outText.replace("P", "П");
+    	outText = outText.replace("p", "п");
     	
-    	outText = outText.replace("R", "?");
-    	outText = outText.replace("r", "?");
+    	outText = outText.replace("R", "Р");
+    	outText = outText.replace("r", "р");
     	
-    	outText = outText.replace("S", "?");
-    	outText = outText.replace("s", "?");
+    	outText = outText.replace("S", "С");
+    	outText = outText.replace("s", "с");
     	
-    	outText = outText.replace("�", "?");
-    	outText = outText.replace("�", "?");
+    	outText = outText.replace("Š", "Ш");
+    	outText = outText.replace("š", "ш");
     	
-    	outText = outText.replace("U", "?");
-    	outText = outText.replace("u", "?");
+    	outText = outText.replace("U", "У");
+    	outText = outText.replace("u", "у");
     	
-    	outText = outText.replace("V", "?");
-    	outText = outText.replace("v", "?");
+    	outText = outText.replace("V", "В");
+    	outText = outText.replace("v", "в");
     	
-    	outText = outText.replace("Z", "?");
-    	outText = outText.replace("z", "?");
+    	outText = outText.replace("Z", "З");
+    	outText = outText.replace("z", "з");
     	
-    	outText = outText.replace("�", "?");
-    	outText = outText.replace("�", "?");
+    	outText = outText.replace("Ž", "Ж");
+    	outText = outText.replace("ž", "ж");
     	    	
     	// 1 letter maps to 1 letter - tiny difference in character
-    	outText = outText.replace("K", "?");
-    	outText = outText.replace("k", "?");
+    	outText = outText.replace("K", "К");
+    	outText = outText.replace("k", "к");
     	
-    	outText = outText.replace("M", "?");
-    	outText = outText.replace("m", "?");
+    	outText = outText.replace("M", "М");
+    	outText = outText.replace("m", "м");
     	
-    	outText = outText.replace("T", "?");
-    	outText = outText.replace("t", "?");
+    	outText = outText.replace("T", "Т");
+    	outText = outText.replace("t", "т");
     	
     	// No change for: Letters that are completely the same in both alphabets:
     	// A, a, E, e, J, j, O, o
