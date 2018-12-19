@@ -19,7 +19,7 @@ public class JekyllMarkdownTransliterator {
                 
         String outText = transliterate(fileText);
     
-        String srFileName = "sr" + hrFileName.substring(2);
+        String srFileName = hrFileName.replace("-hr-", "-sr-");
         PrintWriter writer = new PrintWriter(srFileName, "UTF-8");
         writer.println(outText);
         writer.close();
@@ -31,7 +31,7 @@ public class JekyllMarkdownTransliterator {
         File curDir = new File(".");
         File[] filesList = curDir.listFiles();
         for(File f : filesList){
-            if(f.isFile() && f.toString().substring(2).startsWith("hr-")){
+            if(f.isFile() && f.toString().substring(2).contains("-hr-")){
                 System.out.println(f.getName());
                 return f.getName();
             }
@@ -39,7 +39,7 @@ public class JekyllMarkdownTransliterator {
         return "none";
 	}
 
-	private static String transliterate(String inText){
+	private static String transliterate(String inText){  
     	// 2 letters that map to 1 letter, need to be mapped first: 	
     	String outText = inText.replace("Dž", "Џ");
     	outText = outText.replace("dž", "џ");
@@ -123,8 +123,7 @@ public class JekyllMarkdownTransliterator {
     	
     	// No change for: Letters that are completely the same in both alphabets:
     	// A, a, E, e, J, j, O, o
-    	
-    	//System.out.printf("%s\n",outText);
+
     	return outText;
     }
 }
