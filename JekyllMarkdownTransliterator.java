@@ -4,28 +4,60 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class JekyllMarkdownTransliterator {
 
     public static void main(String[] args) throws IOException {	       	
     	String hrFileName = getHrFileName();
         String fileText = new String(Files.readAllBytes(Paths.get(hrFileName)));
-                
-        //TODO: don't transliterate anything:
-        // - for the included images in the markdown, except for the image alternative text
-        // - in the Jekyll "Front Matter" (YAML set between triple-dashed lines) except for:
-        // -- do transliterate the heading
-        // -- change the language variable to "sr" for the transliterated file
-                
-        String outText = transliterate(fileText);
+
+        String splitFileText[] = fileText.split("(---)");
+        
+        String frontMatterText = splitFileText[1]; 
+        frontMatterText = processFrontMatter(frontMatterText);
+
+        String markdownText = splitFileText[2];
+        markdownText = transliterateMarkdown(markdownText);
+        
+        String outText = "---\n" + frontMatterText + "---\n" + markdownText;
     
         String srFileName = hrFileName.replace("-hr-", "-sr-");
         PrintWriter writer = new PrintWriter(srFileName, "UTF-8");
         writer.println(outText);
-        writer.close();
-                
-        System.out.println("End");     
+        writer.close();     
     }
+
+	private static String transliterateMarkdown(String markdownText) {
+		//do not transliterate any image paths - first find them:
+        List<String> allMatches = new ArrayList<String>();
+        Matcher m = Pattern.compile("\\{\\{ (.*)\\)")
+            .matcher(markdownText);
+        while (m.find()) {
+          allMatches.add(m.group());
+        }
+        //transliterate then put image paths back
+        markdownText = transliterate(markdownText);
+        for(int i=0; i<allMatches.size(); i++){
+        	markdownText= markdownText.replace(transliterate(allMatches.get(i)), allMatches.get(i));
+        }
+		return markdownText;
+	}
+
+	private static String processFrontMatter(String frontMatterText) {
+		//but do transliterate heading
+        Pattern titlePattern = Pattern.compile("title:\\s*(\".*\")");
+        Matcher titleMatcher = titlePattern.matcher(frontMatterText);
+        titleMatcher.find();
+        String title = titleMatcher.group(1);
+        frontMatterText = frontMatterText.replaceAll(("title:\\s*(\".*\")"), "title:" + transliterate(title));
+        // change lang to sr
+        frontMatterText = frontMatterText.replaceAll("lang: hr", "lang: sr");
+		return frontMatterText;
+	}
 	    
     private static String getHrFileName() {
         File curDir = new File(".");
